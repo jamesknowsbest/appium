@@ -44,4 +44,11 @@ describe('Parser', function () {
     let args = p.parseArgs(['--localizable-strings-dir', '/my/dir']);
     args.defaultCapabilities.should.eql(defaultCapabilities);
   });
+  it('should parse --allow-insecure correctly', function () {
+    p.parseArgs([]).allowInsecure.should.eql([]);
+    p.parseArgs(['--allow-insecure', '']).allowInsecure.should.eql([]);
+    p.parseArgs(['--allow-insecure', 'foo']).allowInsecure.should.eql(['foo']);
+    p.parseArgs(['--allow-insecure', 'foo,bar']).allowInsecure.should.eql(['foo', 'bar']);
+    p.parseArgs(['--allow-insecure', 'foo ,bar']).allowInsecure.should.eql(['foo', 'bar']);
+  });
 });
